@@ -10,8 +10,9 @@ module.exports.loop = function () {
     if (DEBUG)
     {
         console.log("================START LOGGING==================")
-	}
-	
+        console.log("Yup it worked.");
+    }
+        	
     if(!Memory.rooms)
     {
         Memory.rooms = {}
