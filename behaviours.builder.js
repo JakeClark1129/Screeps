@@ -41,9 +41,10 @@ var requestingConstructionSite = function (creep)
 }
 requestingConstructionSite.initialize = requestingConstructionSite_initialize;
 
-var build_initialize = function (creep, info)
+var build_initialize = function (creep)
 {
 	//Validate Pre-Conditions:
+	var info = creep.memory
 	if (!info ||
 		!info.targetId ||
 		creep.carry[RESOURCE_ENERGY] == 0)
