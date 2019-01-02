@@ -7,6 +7,7 @@
  * mod.thing == 'a thing'; // true
  */
 var roleBuilder = require('role.builder')
+var builderManager = require('manager.creeps.builder')
 
 var state_initializing = function(creep)
 {
