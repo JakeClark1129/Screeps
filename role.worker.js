@@ -27,6 +27,7 @@ var state_initializing = function(creep)
 var state_requestingJob = function(creep)
 {
     creep.memory.state = "building"
+    creep.memory.building.state = "initializing"
     return "running" 
 }
 
