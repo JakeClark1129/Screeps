@@ -28,7 +28,8 @@ module.exports = {
 
         		//If there is no miner, then we should spawn a new one
         		if (miner == undefined || miner == null) {
-        			//TODO: add miner to screep queue (Should be #1 priority) instead of spawning it here
+					//TODO: add miner to screep queue (Should be #1 priority) instead of spawning it here
+					console.log("Building Miner")
         			var result = creepBuilder.buildCreep(creepBuilder.ROLE_MINER, budget, { 'minerSpot': minerSpotIndex })
         			//Success
         			if (result != null) {

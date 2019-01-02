@@ -67,6 +67,7 @@ module.exports = {
         switch(creepRole)
         {
             case ROLE_MINER:
+                console.log("customMemory for Miner: " + customMemory)
                 result = _buildCreep(MINER_MOVE_SPEED, MINER_BODY_BASE, MINER_BODY_EXTENSIONS, MINER_MAX_EXTENSIONS, "miner", budget, customMemory, debug)
                 break;
             case ROLE_TRANSPORTER:
@@ -88,7 +89,7 @@ module.exports = {
 };
 
 //Function to build a creep, given a recipe
-var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, role, bodyTypeTag, budget, customMemory, debug)
+var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, role, budget, customMemory, debug)
 {
     if (moveSpeed === 0)
     {
