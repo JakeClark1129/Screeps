@@ -14,6 +14,22 @@ var roleUpgrading = require('role.worker.building')
 var roleUpgrading = require('role.worker.dismantling')*/
 
 
+var state_initializing = function(creep)
+{
+    if(!creep.spawning)
+    {
+        creep.say("done")
+        return "done"
+    }
+    return "initializing"
+}
+
+var state_requestingJob = function(creep)
+{
+    creep.memory.state = "building"
+    return "running" 
+}
+
 module.exports = {
     run : function(creep)
     {
@@ -27,7 +43,7 @@ module.exports = {
         switch (state)
         {
         case "initializing":
-            state = state_initializing(creep);
+            state = this.states.initializing(creep);
             break;
         case "requestingJob":
             state = this.states.requestingJob(creep);
@@ -73,20 +89,3 @@ module.exports = {
     }
 };
 
-
-
-var state_initializing = function(creep)
-{
-    if(!creep.spawning)
-    {
-        creep.say("done")
-        return "done"
-    }
-    return "initializing"
-}
-
-var state_requestingJob = function(creep)
-{
-    creep.memory.state = "building"
-    return "running" 
-}
