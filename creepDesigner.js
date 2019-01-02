@@ -189,6 +189,7 @@ var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, ro
         {
             memory = {}
         }
+        console.log("Custom Memory: " + customMemory)
         memory['role'] = role
         memory['state'] = "initializing"
         var result = Game.spawns['Spawn1'].spawnCreep(finalBody, name,  {memory:memory});

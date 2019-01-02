@@ -11,7 +11,6 @@ var creepBuilder = require('creepDesigner');
 module.exports = {
     run : function(budget)
     {
-        var allFlags = Game.flags
         for (var room in Memory.rooms)
         {
         	for (var minerSpotIndex in Memory.rooms[room].minerSpots)
