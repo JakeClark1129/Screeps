@@ -1,16 +1,9 @@
-/*
- * Module code goes here. Use 'module.exports' to export things:
- * module.exports.thing = 'a thing';
- *
- * You can import it from another modules like this:
- * var mod = require('role.miner');
- * mod.thing == 'a thing'; // true
- */
-var builderManager = require('manager.creeps.worker')
-
 /* The worker is a general purpose creep that does everything. However it is primarily
  * used as a builder/repair creep as they have no specifically designed creeps.
  */
+
+var builderManager = require('manager.creeps.worker')
+
 var roleBuilding = require('role.worker.building')
 
 /*var roleUpgrading = require('role.worker.repairing')
@@ -34,10 +27,10 @@ module.exports = {
         switch (state)
         {
         case "initializing":
-            state = self.initializing(creep);
+            state = this.states.initializing(creep);
             break;
         case "requestingJob":
-            state = self.requestingJob(creep);
+            state = this.states.requestingJob(creep);
             break;
         case "building":
             state = roleBuilding.run(creep);

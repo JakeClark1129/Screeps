@@ -76,7 +76,7 @@ module.exports = {
                 result = _buildCreep(UPGRADER_MOVE_SPEED, UPGRADER_BODY_BASE, UPGRADER_BODY_EXTENSIONS, UPGRADER_MAX_EXTENSIONS, "upgrader", budget, customMemory, debug)
                 break;
             case ROLE_WORKER:
-                result = _buildCreep(WORKER_MOVE_SPEED, WORKER_BODY_BASE, WORKER_BODY_EXTENSIONS, WORKER_MAX_EXTENSIONS, "repairer", budget, customMemory, debug)
+                result = _buildCreep(WORKER_MOVE_SPEED, WORKER_BODY_BASE, WORKER_BODY_EXTENSIONS, WORKER_MAX_EXTENSIONS, "worker", budget, customMemory, debug)
                 break;
             default:
                 console.log("ERROR: Unrecognized creepRole: " + creepRole)
