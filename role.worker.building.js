@@ -8,59 +8,6 @@
  */
 var roleBuilder = require('role.builder')
 
-
-module.exports = {
-    run : function(creep)
-    {
-        var state = creep.memory.building.state
-        switch (state)
-        {
-        case "initializing":
-            state = this.states.initializing(creep);
-            break;
-        case "requestingResource":
-            state = this.states.requestingResource(creep);
-            break;
-        case "pickingUpResource":
-            state = this.states.pickingUpResource(creep);
-            break;
-        case "requestingTarget":
-            state = this.states.requestingTarget(creep);
-            break;
-        case "building":
-            state = this.states.building(creep);
-            break;
-        default:
-            console.log("Invalid state for role miner: " + state )
-            state = "failed"
-            break;
-        }
-        creep.memory.building.state = state
-
-        if (state == "done")
-        {
-            return "done"
-        }
-        else if (state == "failed")
-        {
-            return "failed"
-        }
-        else
-        {
-            return "running"
-        }
-    },
-    states: {
-        initializing: state_initializing,
-        requestingResource: state_requestingResource,
-        pickingUpResource: state_pickingUpResource,
-        requestingTarget: state_requestingTarget,
-        building: state_building,
-    }
-};
-
-
-
 var state_initializing = function(creep)
 {
     if(!creep.spawning)
@@ -198,4 +145,52 @@ var state_building = function(creep)
     }
 }
 
+module.exports = {
+    run : function(creep)
+    {
+        var state = creep.memory.building.state
+        switch (state)
+        {
+        case "initializing":
+            state = this.states.initializing(creep);
+            break;
+        case "requestingResource":
+            state = this.states.requestingResource(creep);
+            break;
+        case "pickingUpResource":
+            state = this.states.pickingUpResource(creep);
+            break;
+        case "requestingTarget":
+            state = this.states.requestingTarget(creep);
+            break;
+        case "building":
+            state = this.states.building(creep);
+            break;
+        default:
+            console.log("Invalid state for role miner: " + state )
+            state = "failed"
+            break;
+        }
+        creep.memory.building.state = state
 
+        if (state == "done")
+        {
+            return "done"
+        }
+        else if (state == "failed")
+        {
+            return "failed"
+        }
+        else
+        {
+            return "running"
+        }
+    },
+    states: {
+        initializing: state_initializing,
+        requestingResource: state_requestingResource,
+        pickingUpResource: state_pickingUpResource,
+        requestingTarget: state_requestingTarget,
+        building: state_building,
+    }
+};
