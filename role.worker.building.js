@@ -24,7 +24,7 @@ var state_requestingResource = function(creep)
 {
     if (creep.memory.building.energySourceId == undefined || creep.memory.building.energySourceId == null)
     {
-        var source = builderManager.getEnergySource(creep.carryCapacity - creep.energyAvailable)
+        var source = builderManager.getEnergySource(creep)
         if(source)
         {
             creep.memory.building.energySourceId = source.id
