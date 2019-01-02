@@ -67,7 +67,6 @@ module.exports = {
         switch(creepRole)
         {
             case ROLE_MINER:
-                console.log("customMemory for Miner: " + customMemory)
                 result = _buildCreep(MINER_MOVE_SPEED, MINER_BODY_BASE, MINER_BODY_EXTENSIONS, MINER_MAX_EXTENSIONS, "miner", budget, customMemory, debug)
                 break;
             case ROLE_TRANSPORTER:
@@ -77,7 +76,6 @@ module.exports = {
                 result = _buildCreep(UPGRADER_MOVE_SPEED, UPGRADER_BODY_BASE, UPGRADER_BODY_EXTENSIONS, UPGRADER_MAX_EXTENSIONS, "upgrader", budget, customMemory, debug)
                 break;
             case ROLE_WORKER:
-                console.log("Budget: " + budget)
                 result = _buildCreep(WORKER_MOVE_SPEED, WORKER_BODY_BASE, WORKER_BODY_EXTENSIONS, WORKER_MAX_EXTENSIONS, "worker", budget, customMemory, debug)
                 break;
             default:
@@ -190,7 +188,6 @@ var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, ro
         {
             memory = {}
         }
-        console.log("Custom Memory: " + customMemory)
         memory['role'] = role
         memory['state'] = "initializing"
         var result = Game.spawns['Spawn1'].spawnCreep(finalBody, name,  {memory:memory});
