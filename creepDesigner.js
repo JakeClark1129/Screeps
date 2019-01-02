@@ -14,8 +14,7 @@ var ROLE_UNASSIGNED = 0
 var ROLE_MINER = 1
 var ROLE_TRANSPORTER = 2
 var ROLE_UPGRADER = 3
-var ROLE_REPAIRER = 4
-var ROLE_BUILDER = 5
+var ROLE_WORKER = 4
 
 
 /* Screep recipes:
@@ -43,17 +42,11 @@ var UPGRADER_BODY_BASE = [CARRY, WORK];
 var UPGRADER_BODY_EXTENSIONS = [WORK];
 var UPGRADER_MAX_EXTENSIONS = 10
 
-//REPAIRER
-var REPAIRER_MOVE_SPEED = 2;
-var REPAIRER_BODY_BASE = [CARRY, WORK];
-var REPAIRER_BODY_EXTENSIONS = [WORK, CARRY, CARRY];
-var REPAIRER_MAX_EXTENSIONS = 5
-
-//BUILDER
-var BUILDER_MOVE_SPEED = 2;
-var BUILDER_BODY_BASE = [CARRY, CARRY, WORK];
-var BUILDER_BODY_EXTENSIONS = [WORK, CARRY, CARRY];
-var BUILDER_MAX_EXTENSIONS = 5
+//WORKER
+var WORKER_MOVE_SPEED = 2;
+var WORKER_BODY_BASE = [CARRY, CARRY, WORK];
+var WORKER_BODY_EXTENSIONS = [WORK, CARRY, CARRY];
+var WORKER_MAX_EXTENSIONS = 5
 
 module.exports = {
     
@@ -62,8 +55,7 @@ module.exports = {
     ROLE_MINER,
     ROLE_TRANSPORTER,
     ROLE_UPGRADER,
-    ROLE_REPAIRER,
-    ROLE_BUILDER,
+    ROLE_WORKER,
     buildCreep: function(creepRole, budget, customMemory, debug)
     {
         if (budget === undefined)
@@ -83,11 +75,8 @@ module.exports = {
             case ROLE_UPGRADER:
                 result = _buildCreep(UPGRADER_MOVE_SPEED, UPGRADER_BODY_BASE, UPGRADER_BODY_EXTENSIONS, UPGRADER_MAX_EXTENSIONS, "upgrader", budget, customMemory, debug)
                 break;
-            case ROLE_REPAIRER:
-                result = _buildCreep(REPAIRER_MOVE_SPEED,REPAIRER_BODY_BASE, REPAIRER_BODY_EXTENSIONS, REPAIRER_MAX_EXTENSIONS, "repairer", budget, customMemory, debug)
-                break;
-            case ROLE_BUILDER:
-                result = _buildCreep(BUILDER_MOVE_SPEED, BUILDER_BODY_BASE, BUILDER_BODY_EXTENSIONS, BUILDER_MAX_EXTENSIONS, "builder", budget, customMemory, debug)
+            case ROLE_WORKER:
+                result = _buildCreep(WORKER_MOVE_SPEED, WORKER_BODY_BASE, WORKER_BODY_EXTENSIONS, WORKER_MAX_EXTENSIONS, "repairer", budget, customMemory, debug)
                 break;
             default:
                 console.log("ERROR: Unrecognized creepRole: " + creepRole)
@@ -98,7 +87,7 @@ module.exports = {
 };
 
 //Function to build a creep, given a recipe
-var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, role, budget, customMemory, debug)
+var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, role, bodyTypeTag, budget, customMemory, debug)
 {
     if (moveSpeed === 0)
     {

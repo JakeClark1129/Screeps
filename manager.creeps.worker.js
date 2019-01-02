@@ -7,7 +7,6 @@
  * mod.thing == 'a thing'; // true
  */
 
-var 
 
 module.exports = {
     run : function()
@@ -34,8 +33,8 @@ module.exports = {
 		var requiredAmount = creep.carryCapacity - _.sum(creep.carry);
 		return utils.findBestResourceSource(creep, RESOURCE_ENERGY, requiredAmount, strict, true, true, true)
 	},
-	reassignRole: function (creep)
-	{
-		//TODO: Calculate what kind of role is required.qq	
+    requestRole: function (creep)
+    {
+		//TODO: Calculate what kind of role is required.
 	}
 };

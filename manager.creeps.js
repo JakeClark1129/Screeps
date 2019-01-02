@@ -5,7 +5,7 @@ var transporterManager = require('manager.creeps.transporter');
 var roleMiner = require('role.miner');
 var roleTransporter = require('role.transporter');
 var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
+var roleWorker = require('role.worker');
 
 var creepBuilder = require('creepDesigner');
 
@@ -27,18 +27,14 @@ var run = function()
     var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
     if (sites)
     {
-        MAX_BUILDERS = sites.length/3
-        if (MAX_BUILDERS > (MAX_WORKERS - 1))
-        {
-            MAX_BUILDERS = MAX_WORKERS - 1
-        }
+        MAX_WORKERS = sites.length/3
     }
-    //MAX_UPGRADERS = MAX_WORKERS - MAX_BUILDERS
     MAX_UPGRADERS = 2;
+
     var minerCount = 0;
     var transporterCount = 0;
     var upgraderCount = 0;
-    var builderCount = 0;
+    var workerCount = 0;
     //Make all creeps do their thing
     for(var creepName in Game.creeps)
     {
@@ -59,9 +55,9 @@ var run = function()
                     roleUpgrader.run(creep)
                     ++upgraderCount
                 break;
-                case "builder":
-                    roleBuilder.run(creep)
-                    ++builderCount
+                case "worker":
+                    roleWorker.run(creep)
+                    ++workerCount
                 break;
             }
         }
@@ -86,9 +82,9 @@ var run = function()
     {
         creepBuilder.buildCreep(creepBuilder.ROLE_UPGRADER, budget )
     }
-    if(builderCount < MAX_BUILDERS)
+    if(workerCount < MAX_WORKERS)
     {
-        creepBuilder.buildCreep(creepBuilder.ROLE_BUILDER, budget )
+        creepBuilder.buildCreep(creepBuilder.ROLE_WORKER, budget )
     }
     
 }

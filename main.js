@@ -1,6 +1,4 @@
 var creepManager = require('manager.creeps');
-var creepBuilder = require('creepDesigner');
-var utils = require('utils');
 var roomSetup = require('roomSetup');
 
 var DEBUG = true;

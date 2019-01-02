@@ -12,9 +12,53 @@ var roleBuilder = require('role.builder')
 module.exports = {
     run : function(creep)
     {
-        roleBuilder.run(creep)
+        var state = creep.memory.building.state
+        switch (state)
+        {
+        case "initializing":
+            state = this.states.initializing(creep);
+            break;
+        case "requestingResource":
+            state = this.states.requestingResource(creep);
+            break;
+        case "pickingUpResource":
+            state = this.states.pickingUpResource(creep);
+            break;
+        case "requestingTarget":
+            state = this.states.requestingTarget(creep);
+            break;
+        case "building":
+            state = this.states.building(creep);
+            break;
+        default:
+            console.log("Invalid state for role miner: " + state )
+            state = "failed"
+            break;
+        }
+        creep.memory.building.state = state
+
+        if (state == "done")
+        {
+            return "done"
+        }
+        else if (state == "failed")
+        {
+            return "failed"
+        }
+        else
+        {
+            return "running"
+        }
+    },
+    states: {
+        initializing: state_initializing,
+        requestingResource: state_requestingResource,
+        pickingUpResource: state_pickingUpResource,
+        requestingTarget: state_requestingTarget,
+        building: state_building,
     }
 };
+
 
 
 var state_initializing = function(creep)
@@ -30,20 +74,20 @@ var state_initializing = function(creep)
 
 var state_requestingResource = function(creep)
 {
-    if (creep.memory.energySourceId == undefined || creep.memory.energySourceId == null)
+    if (creep.memory.building.energySourceId == undefined || creep.memory.building.energySourceId == null)
     {
         var source = builderManager.getEnergySource(creep.carryCapacity - creep.energyAvailable)
         if(source)
         {
-            creep.memory.energySourceId = source.id
+            creep.memory.building.energySourceId = source.id
         }
         else
         {
-            creep.memory.energySourceId = null
+            creep.memory.building.energySourceId = null
         }
     }
     
-    if (creep.memory.energySourceId)
+    if (creep.memory.building.energySourceId)
     {
         creep.say("pickingUpResource")
         return "pickingUpResource"
@@ -54,19 +98,19 @@ var state_requestingResource = function(creep)
 
 var state_pickingUpResource = function(creep)
 {
-    if (!creep.memory.energySourceId)
+    if (!creep.memory.building.energySourceId)
     {
         //We lost the energy source - This should never happen
         creep.say("requestingResource")
         return "requestingResource"
     }
-    var energySource = Game.getObjectById(creep.memory.energySourceId)
+    var energySource = Game.getObjectById(creep.memory.building.energySourceId)
     
     //Check if the energy source still exists
     if (energySource == null)
     {
         //We lost the energy source
-        creep.memory.energySourceId = null
+        creep.memory.building.energySourceId = null
         creep.say("requestingResource")
         return "requestingResource"
     }
@@ -80,7 +124,7 @@ var state_pickingUpResource = function(creep)
     }
     else
     {
-        creep.memory.energySourceId = null;
+        creep.memory.building.energySourceId = null;
         creep.say("requestingTarget")
         return "requestingTarget"
     }
@@ -91,16 +135,16 @@ var state_requestingTarget = function(creep)
     var target = builderManager.getTarget();
     if (target)
     {
-        creep.memory.targetId = target.id;
+        creep.memory.building.targetId = target.id;
     }
     else
     {
         //If we could not find a target, then make sure we clear whatever might have been in memory before this tick
-        creep.memory.targetId = null   
+        creep.memory.building.targetId = null   
     }
     
     
-    if (creep.memory.targetId)
+    if (creep.memory.building.targetId)
     {
         creep.say("building")
         return "building"
@@ -110,19 +154,18 @@ var state_requestingTarget = function(creep)
 
 var state_building = function(creep)
 {
-    if (!creep.memory.targetId)
+    if (!creep.memory.building.targetId)
     {
         creep.say("requestingTarget")
         return "requestingTarget"
     }
     
-    
-    var target = Game.getObjectById(creep.memory.targetId)
-    //if the target does not exist
+    var target = Game.getObjectById(creep.memory.building.targetId)
+    //if the target does not exist, then we assume it was destroyed or finished. Move on
     if (!target)
     {
-        creep.say("requestingTarget")
-        return "requestingTarget"
+        creep.say("Done")
+        return "Done"
     }
     var result = creep.build(target)
     if (result == ERR_NOT_IN_RANGE)
@@ -149,11 +192,10 @@ var state_building = function(creep)
     }
     else
     {
-        creep.memory.targetId = null //Unreliable target, remove it to force us to request a new one later
+        creep.memory.building.targetId = null //Unreliable target, remove it to force us to request a new one later
         creep.say("initializing")
         return "initializing"
     }
-    return "building"
 }
 
 

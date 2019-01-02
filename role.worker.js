@@ -11,13 +11,14 @@ var builderManager = require('manager.creeps.worker')
 /* The worker is a general purpose creep that does everything. However it is primarily
  * used as a builder/repair creep as they have no specifically designed creeps.
  */
-var roleUpgrading = require('role.worker.building')
-var roleUpgrading = require('role.worker.repairing')
+var roleBuilding = require('role.worker.building')
+
+/*var roleUpgrading = require('role.worker.repairing')
 var roleUpgrading = require('role.worker.upgrading')
 var roleUpgrading = require('role.worker.mining')
 var roleUpgrading = require('role.worker.transporting')
 var roleUpgrading = require('role.worker.building')
-var roleUpgrading = require('role.worker.dismantling')
+var roleUpgrading = require('role.worker.dismantling')*/
 
 
 module.exports = {
@@ -33,29 +34,66 @@ module.exports = {
         switch (state)
         {
         case "initializing":
-            state = state_initializing(creep);
+            state = self.initializing(creep);
+            break;
+        case "requestingJob":
+            state = self.requestingJob(creep);
             break;
         case "building":
-            state = state_requestingResource(creep);
+            state = roleBuilding.run(creep);
             break;
         case "repairing":
-            state = state_pickingUpResource(creep);
+            state = roleRepairing.run(creep);
             break;
         case "dismantling":
-            state = state_requestingTarget(creep);
+            state = roleDismantling.run(creep);
             break;
         case "mining":
-            state = state_building(creep);
+            state = roleMining.run(creep);
             break;
         case "upgrading":
-            state = state_building(creep);
+            state = roleUpgradeing.run(creep);
             break;
         default:
-            console.log("Invalid state for role miner: " + state )
+            console.log("Invalid state for role worker: " + state )
             state = "initializing"
             break;
         }
         
-        creep.memory.state = state
+        if (state == "running")                         
+        {
+            //Do nothing
+        }
+        else if (state == "failed" || state == "done")
+        {
+            creep.memory.state = "requestingJob"
+        }
+        else
+        {
+            //Something went wrong... Go back to initializing state to signal that something went wrong
+            creep.memory.state = "initializing"
+        }
+    },
+    states: {
+        initializing: state_initializing,
+        requestingJob: state_requestingJob,
     }
 };
+
+
+
+var state_initializing = function(creep)
+{
+    if(!creep.spawning)
+    {
+        creep.say("requestingResource")
+        return "requestingResource"
+    }
+    return "initializing"
+}
+
+var state_requestingJob = function(creep)
+{
+    creep.memory.state = "building"
+    return "running" 
+}
