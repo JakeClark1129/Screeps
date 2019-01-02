@@ -27,7 +27,7 @@ module.exports = {
         switch (state)
         {
         case "initializing":
-            state = this.states.initializing(creep);
+            state = state_initializing(creep);
             break;
         case "requestingJob":
             state = this.states.requestingJob(creep);
@@ -79,8 +79,8 @@ var state_initializing = function(creep)
 {
     if(!creep.spawning)
     {
-        creep.say("requestingResource")
-        return "requestingResource"
+        creep.say("done")
+        return "done"
     }
     return "initializing"
 }
