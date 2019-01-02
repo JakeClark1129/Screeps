@@ -12,6 +12,7 @@ var state_initializing = function (creep)
 {
 	if (!creep.spawning)
 	{
+		console.log("creep: " + creep )
 		var minerSpot = Memory.rooms[creep.room.name].minerSpots[creep.memory.minerSpot]
 		creep.memory.sourceId = minerSpot.sourceId
 
