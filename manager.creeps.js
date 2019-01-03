@@ -27,7 +27,7 @@ var run = function()
     var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
     
     sites = sites.concat(Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {filter : (structure) => {
-        return structure.hitsMax * 0.60 >= structure.hits 
+        return structure.hitsMax * 0.70 >= structure.hits 
     }}));
 
     if (sites)
