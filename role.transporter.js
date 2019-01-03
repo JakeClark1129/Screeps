@@ -66,7 +66,7 @@ var state_pickingUpResource = function(creep)
         return "requestingResource"
     }
     
-    var result = creep.withdraw(energySource)
+    var result = creep.withdraw(energySource, RESOURCE_ENERGY)
     if(result == ERR_INVALID_TARGET)
     {
         result = creep.pickup(energySource)
