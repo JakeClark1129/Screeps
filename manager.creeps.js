@@ -35,7 +35,10 @@ var run = function()
         MAX_WORKERS = sites.length/3
     }
     MAX_UPGRADERS = 2;
-
+    if (Game.spawns['Spawn1'].room.controller.level == 8)
+    {
+        MAX_UPGRADERS = 1;
+    }
     var minerCount = 0;
     var transporterCount = 0;
     var upgraderCount = 0;
