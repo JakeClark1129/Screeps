@@ -26,9 +26,23 @@ var state_initializing = function(creep)
 
 var state_requestingJob = function(creep)
 {
-    creep.memory.state = "building"
+    //var damagedStructures = creep.room.find(FIND_STRUCTURES, {filter : (structure) => {
+    //    return structure.hitsMax * 0.75 >= structure.hits 
+    //}});
+    var constructionSites = creep.room.find(FIND_CONSTRUCTION_SITES);
+    var state = null
+    if (constructionSites)
+    {
+        state = "building"
+    }
+    else
+    {
+        state = "repairing"
+    }
+    
     //Assigning a value instead of adding to it will ensure previous values are cleaned up.
-    creep.memory.building = { state: "initializing" }
+    creep.memory.state = state
+    creep.memory[state] = { state: "initializing" }
     return "running" 
 }
 

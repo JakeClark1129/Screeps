@@ -12,7 +12,7 @@ module.exports = {
     {
         //TODO: Get list of structures requiring energy from transport manager
     },
-    getTarget : function()
+    getTarget : function(creep)
     {
         var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
         if (sites)
@@ -20,7 +20,20 @@ module.exports = {
             return sites[0]
         }
     },
-    
+    //TODO: Make this function account for distance, and current health of the structure.
+    getRepairTarget : function(creep)
+    {
+        //All valid structures.
+        var targets = creep.room.find(FIND_STRUCTURES, {filter : (structure) => {
+            return structure.hitsMax * 0.75 >= structure.hits 
+        }});
+
+        targets.sort((a, b) => {
+            a.hits / a.hitsMax - b.hits / b.hitsMax
+        })
+
+        return targets[0]
+    },
     //Use this to prioritize taking energy from long term storage instead of miners (For builders only)
     getEnergySource : function(creep)
     {

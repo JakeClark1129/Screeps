@@ -14,7 +14,7 @@ var MAX_TRANSPORTERS = 2;
 //Workers is any creep that spend energy. TODO: Base this number off of energy available to the room.
 var MAX_WORKERS = 2 
 var MAX_UPGRADERS = 0;
-var MAX_BUILDERS = 0;
+
 var run = function()
 {
     for(var i in Memory.creeps) 
@@ -25,6 +25,11 @@ var run = function()
         }
     }
     var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
+    
+    sites = sites.concat(creep.room.find(FIND_STRUCTURES, {filter : (structure) => {
+        return structure.hitsMax * 0.60 >= structure.hits 
+    }}));
+
     if (sites)
     {
         MAX_WORKERS = sites.length/3
