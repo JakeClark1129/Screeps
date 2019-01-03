@@ -64,9 +64,14 @@ var state_pickingUpResource = function(creep)
         creep.memory.energySourceId = null
         creep.say("requestingResource")
         return "requestingResource"
+    }a
+    
+    var result = creep.withdraw(energySource)
+    if(result == ERR_INVALID_TARGET)
+    {
+        result = creep.pickup(energySource)
     }
     
-    var result = creep.pickup(energySource)
     if (result == ERR_NOT_IN_RANGE)
     {
         creep.moveTo(energySource, {reusePath:20})
