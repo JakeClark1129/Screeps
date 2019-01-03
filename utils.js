@@ -40,6 +40,20 @@ module.exports = {
 						minerSpot.containerId = null
 					}
 				}
+				else
+				{
+					structures = creep.room.lookForAt(LOOK_STRUCTURES, minerSpot.pos.x, minerSpot.pos.y)
+					if (structures.length > 0)
+					{
+						for(var i in structures)
+						{
+							if (structures[i].structureType == STRUCTURE_CONTAINER)
+							{
+								minerSpot.containerId = structures[i].id;
+							}
+						}
+					}
+				}
 				if (resourceSourceObj)
 				{
 					resourceAmount = resourceSourceObj.store[resourceType]
