@@ -56,7 +56,7 @@ module.exports = {
 						}
 						if (!found)
 						{
-							spawn.room.createConstructionSite(minerSpot.pos.x, minerSpot.pos.y, STRUCTURE_CONTAINER)
+							creep.room.createConstructionSite(minerSpot.pos.x, minerSpot.pos.y, STRUCTURE_CONTAINER)
 						}
 					}
 				}
