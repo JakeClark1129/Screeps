@@ -43,9 +43,9 @@ module.exports = {
 				else
 				{
 					structures = creep.room.lookForAt(LOOK_STRUCTURES, minerSpot.pos.x, minerSpot.pos.y)
+					var found = false;
 					if (structures.length > 0)
 					{
-						var found = false;
 						for(var i in structures)
 						{
 							if (structures[i].structureType == STRUCTURE_CONTAINER)
@@ -54,10 +54,10 @@ module.exports = {
 								found = true
 							}
 						}
-						if (!found)
-						{
-							creep.room.createConstructionSite(minerSpot.pos.x, minerSpot.pos.y, STRUCTURE_CONTAINER)
-						}
+					}
+					if (!found)
+					{
+						creep.room.createConstructionSite(minerSpot.pos.x, minerSpot.pos.y, STRUCTURE_CONTAINER)
 					}
 				}
 				if (resourceSourceObj)
