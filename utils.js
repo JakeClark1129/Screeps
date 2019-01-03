@@ -42,20 +42,14 @@ module.exports = {
 				}
 				else
 				{
-					structures = creep.room.lookForAt(LOOK_STRUCTURES, minerSpot.pos.x, minerSpot.pos.y)
-					var found = false;
+					structures = creep.room.lookForAt(LOOK_STRUCTURES, minerSpot.pos.x, minerSpot.pos.y, {filter : (structure) => {
+						 return structure.structureType == STRUCTURE_CONTAINER && structure.contains[RESOURCE_ENERGY] > 0
+						}});
 					if (structures.length > 0)
 					{
-						for(var i in structures)
-						{
-							if (structures[i].structureType == STRUCTURE_CONTAINER)
-							{
-								minerSpot.containerId = structures[i].id;
-								found = true
-							}
-						}
+						minerSpot.containerId = structures[i].id;
 					}
-					if (!found)
+					else
 					{
 						creep.room.createConstructionSite(minerSpot.pos.x, minerSpot.pos.y, STRUCTURE_CONTAINER)
 					}
