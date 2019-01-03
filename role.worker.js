@@ -31,7 +31,7 @@ var state_requestingJob = function(creep)
     //}});
     var constructionSites = creep.room.find(FIND_CONSTRUCTION_SITES);
     var state = null
-    if (constructionSites)
+    if (constructionSites.length > 0)
     {
         state = "building"
     }
