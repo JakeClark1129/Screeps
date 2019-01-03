@@ -5,6 +5,7 @@
 var builderManager = require('manager.creeps.worker')
 
 var roleBuilding = require('role.worker.building')
+var roleRepairing = require('role.worker.repairing')
 
 /*var roleUpgrading = require('role.worker.repairing')
 var roleUpgrading = require('role.worker.upgrading')
