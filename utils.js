@@ -23,7 +23,7 @@ module.exports = {
 		 */
 		if (includeHarvesterSpots)
 		{
-			//TODO: We need to add an extra layer to the miner spots to allow us to filter the type of resouce being mined
+			//TODO: We need to add an extra layer to the miner spots to allow us to filter the type of resource being mined
 			var minerSpots = Memory.rooms[creep.room.name].minerSpots;
 			for (var minerSpotIndex in minerSpots)
 			{
@@ -66,7 +66,7 @@ module.exports = {
 				}
 				else
 				{
-					//TODO: We need to add an extra layer to the miner spots to allow us to filter the type of resouce being mined
+					//TODO: We need to add an extra layer to the miner spots to allow us to filter the type of resource being mined
 					var droppedResource = creep.room.lookForAt(LOOK_ENERGY, minerSpot.pos.x, minerSpot.pos.y);
 					console.log("Length: " + droppedResource.length)
 					if (droppedResource.length > 0)
@@ -131,7 +131,7 @@ module.exports = {
 				resourceSource.pos = droppedResource.pos
 				resourceSource.amount = droppedResource.amount
 				resourceSource.travelCost = totalTicks
-				resourceSource.souce = droppedResource
+				resourceSource.source = droppedResource
 				//Add resource source oobject to a list so we can determine the best choice later.
 				resourceSources.push(resourceSource);
 			}
@@ -143,7 +143,7 @@ module.exports = {
 			if (storageContainer != undefined)
 			{
 				//If the creep is strictly requesting only sources that can fill him up, then no sense in adding it to the list.
-				if (!strict || storageContainer.store[resouceType] >= amount)
+				if (!strict || storageContainer.store[resourceType] >= amount)
 				{
 
 					//Determine the total amount of ticks it will take to travel to the resource source
@@ -154,7 +154,7 @@ module.exports = {
 					//Build the resource source object
 					var resourceSource = {}
 					resourceSource.pos = storageContainer.pos
-					resourceSource.amount = storageContainer.store[resouceType]
+					resourceSource.amount = storageContainer.store[resourceType]
 					resourceSource.travelCost = totalTicks
 					resourceSource.source = storageContainer
 					//Add resource source oobject to a list so we can determine the best choice later.
