@@ -47,7 +47,7 @@ module.exports = {
 						}});
 					if (structures.length > 0)
 					{
-						minerSpot.containerId = structures[i].id;
+						minerSpot.containerId = structures[0].id;
 					}
 					else
 					{

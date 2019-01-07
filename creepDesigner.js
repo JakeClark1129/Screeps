@@ -56,6 +56,7 @@ module.exports = {
     ROLE_TRANSPORTER,
     ROLE_UPGRADER,
     ROLE_WORKER,
+    UPGRADER_MAX_EXTENSIONS: UPGRADER_MAX_EXTENSIONS,
     buildCreep: function(creepRole, budget, customMemory, debug)
     {
         if (budget === undefined)
@@ -73,7 +74,7 @@ module.exports = {
                 result = _buildCreep(TRANSPORTER_MOVE_SPEED, TRANSPORTER_BODY_BASE, TRANSPORTER_BODY_EXTENSIONS, TRANSPORTER_MAX_EXTENSIONS, "transporter", budget, customMemory, debug)
                 break;
             case ROLE_UPGRADER:
-                result = _buildCreep(UPGRADER_MOVE_SPEED, UPGRADER_BODY_BASE, UPGRADER_BODY_EXTENSIONS, UPGRADER_MAX_EXTENSIONS, "upgrader", budget, customMemory, debug)
+                result = _buildCreep(UPGRADER_MOVE_SPEED, UPGRADER_BODY_BASE, UPGRADER_BODY_EXTENSIONS, this.UPGRADER_MAX_EXTENSIONS, "upgrader", budget, customMemory, debug)
                 break;
             case ROLE_WORKER:
                 result = _buildCreep(WORKER_MOVE_SPEED, WORKER_BODY_BASE, WORKER_BODY_EXTENSIONS, WORKER_MAX_EXTENSIONS, "worker", budget, customMemory, debug)
@@ -83,7 +84,7 @@ module.exports = {
                 result = null
         }
         return result
-    }
+    },
 };
 
 //Function to build a creep, given a recipe

@@ -38,6 +38,7 @@ var run = function()
     if (Game.spawns['Spawn1'].room.controller.level == 8)
     {
         MAX_UPGRADERS = 1;
+        creepBuilder.UPGRADER_MAX_EXTENSIONS = 14;
     }
     var minerCount = 0;
     var transporterCount = 0;
