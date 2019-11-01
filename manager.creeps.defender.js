@@ -20,7 +20,7 @@ module.exports = {
 		var enemyCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (enemyCreep)
         {
-            return enemyCreep[0]
+            return enemyCreep
         }
         return null;
     },

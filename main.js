@@ -9,7 +9,7 @@ module.exports.loop = function () {
     {
         console.log("================START LOGGING==================")
     }
-        	
+    
     if(!Memory.rooms)
     {
         Memory.rooms = {}

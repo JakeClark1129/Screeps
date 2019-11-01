@@ -89,7 +89,8 @@ var run = function()
     minerManager.run(budget)
     if(defenderCount < defendersRequired)
     {
-        creepBuilder.buildCreep(creepBuilder.ROLE_DEFENDER, budget )
+		creepBuilder.buildCreep(creepBuilder.ROLE_DEFENDER, budget )
+		console.log("Build Defender.")
     }
     if(transporterCount < MAX_TRANSPORTERS)
     {
