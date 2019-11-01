@@ -15,6 +15,7 @@ var ROLE_MINER = 1
 var ROLE_TRANSPORTER = 2
 var ROLE_UPGRADER = 3
 var ROLE_WORKER = 4
+var ROLE_DEFENDER = 5
 
 
 /* Screep recipes:
