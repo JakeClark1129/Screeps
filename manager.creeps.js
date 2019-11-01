@@ -6,7 +6,7 @@ var roleMiner = require('role.miner');
 var roleTransporter = require('role.transporter');
 var roleUpgrader = require('role.upgrader');
 var roleWorker = require('role.worker');
-
+var roleDefender = require('role.defender');
 var creepBuilder = require('creepDesigner');
 
 var MAX_TRANSPORTERS = 2;
@@ -44,6 +44,7 @@ var run = function()
     var transporterCount = 0;
     var upgraderCount = 0;
     var workerCount = 0;
+    var defenderCount = 0;
     //Make all creeps do their thing
     for(var creepName in Game.creeps)
     {
@@ -67,6 +68,9 @@ var run = function()
                 case "worker":
                     roleWorker.run(creep)
                     ++workerCount
+                case "defender":
+                    roleDefender.run(creep)
+                    ++defenderCount
                 break;
             }
         }
