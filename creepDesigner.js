@@ -48,14 +48,22 @@ var WORKER_BODY_BASE = [CARRY, CARRY, WORK];
 var WORKER_BODY_EXTENSIONS = [WORK, CARRY, CARRY];
 var WORKER_MAX_EXTENSIONS = 5
 
+//DEFENDER
+var DEFENDER_MOVE_SPEED = 1;
+var DEFENDER_BODY_BASE = [TOUGH, TOUGH, TOUGH, ATTACK, ATTACK];
+var DEFENDER_BODY_EXTENSIONS = [ATTACK, TOUGH, TOUGH];
+var DEFENDER_MAX_EXTENSIONS = 5
+
+
 module.exports = {
-    
+
     //Creep roles
     ROLE_UNASSIGNED,
     ROLE_MINER,
     ROLE_TRANSPORTER,
     ROLE_UPGRADER,
     ROLE_WORKER,
+    ROLE_DEFENDER,
     UPGRADER_MAX_EXTENSIONS: UPGRADER_MAX_EXTENSIONS,
     buildCreep: function(creepRole, budget, customMemory, debug)
     {
@@ -79,6 +87,9 @@ module.exports = {
             case ROLE_WORKER:
                 result = _buildCreep(WORKER_MOVE_SPEED, WORKER_BODY_BASE, WORKER_BODY_EXTENSIONS, WORKER_MAX_EXTENSIONS, "worker", budget, customMemory, debug)
                 break;
+            case ROLE_DEFENDER:
+                result = _buildCreep(DEFENDER_MOVE_SPEED, DEFENDER_BODY_BASE, DEFENDER_BODY_EXTENSIONS, DEFENDER_MAX_EXTENSIONS, "defender", budget, customMemory, debug)
+                break;
             default:
                 console.log("ERROR: Unrecognized creepRole: " + creepRole)
                 result = null
@@ -93,9 +104,9 @@ var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, ro
     if (moveSpeed === 0)
     {
         //Assign a rediculously high value so it will always be 1 move part.
-        moveSpeed = 9999;    
+        moveSpeed = 9999;
     }
-    
+
     if (debug)
     {
         console.log("base: " + bodyBase);
@@ -104,19 +115,19 @@ var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, ro
         console.log("role: " + role);
         console.log("budget: " + budget);
     }
-    
+
     var baseCost = calculateBodyCost(bodyBase)
     var extensionCost = calculateBodyCost(bodyExtension);
-    
+
     var baseWeight = calculateBodyWeight(bodyBase);
     var extensionWeight = calculateBodyWeight(bodyExtension);
-    
+
     //Initialize body with smallest option
     var body = bodyBase;
     var bodyWeight = baseWeight;
     var bodyCost = baseCost;
     var movementCost = Math.ceil(bodyWeight / (2 * moveSpeed)) * BODYPART_COST[MOVE]
-    
+
     var nextStepBodyWeight = baseWeight + extensionWeight;
     var nextStepBodyCost = baseCost + extensionCost
     var nextStepMovementCost = Math.ceil(nextStepBodyWeight / (2 * moveSpeed)) * BODYPART_COST[MOVE]
@@ -127,15 +138,15 @@ var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, ro
         console.log("extensionCost: " + extensionCost);
         console.log("baseWeight: " + baseWeight);
         console.log("extensionWeight: " + extensionWeight);
-        
+
         console.log("body: " + body);
         console.log("bodyWeight: " + bodyWeight);
         console.log("bodyCost: " + bodyCost);
         console.log("movementCost: " + movementCost);
-        
+
         console.log("nextStepCost < budget -- " + (nextStepBodyCost + nextStepMovementCost) + " < " + budget);
     }
-    
+
     var iters = 0;
     while(nextStepBodyCost + nextStepMovementCost <= budget && iters < maxExtensions)
     {
@@ -143,24 +154,24 @@ var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, ro
         bodyWeight = nextStepBodyWeight
         bodyCost = nextStepBodyCost
         movementCost = nextStepMovementCost
-        
+
         nextStepBodyWeight = bodyWeight + extensionWeight;
         nextStepBodyCost = bodyCost + extensionCost;
         nextStepMovementCost = Math.ceil(nextStepBodyWeight / (2 * moveSpeed)) * BODYPART_COST[MOVE]
         ++iters
-        
+
         if(debug)
         {
             console.log("iters: " + iters)
             console.log("body: " + body)
             console.log("bodyCost: " + bodyCost)
             console.log("movementCost: " + movementCost)
-            
-            
+
+
             console.log("nextStepBodyWeight: " + nextStepBodyWeight)
             console.log("nextStepBodyCost: " + nextStepBodyCost)
             console.log("nextStepMovementCost: " + nextStepMovementCost)
-            
+
             console.log("nextStepCost < budget -- " + (nextStepBodyCost + nextStepMovementCost) + " < " + budget);
         }
     }
@@ -175,11 +186,11 @@ var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, ro
         finalBody.push(MOVE)
     }
     finalBody = finalBody.concat(body)
-    
+
     if (debug)
     {
         console.log("FinalBody: " + finalBody)
-        
+
     }
     var name = nameGenerator.getName();
     if (!Game.spawns['Spawn1'].memory.reserved)
@@ -201,7 +212,7 @@ var _buildCreep = function(moveSpeed, bodyBase, bodyExtension, maxExtensions, ro
             }
             return name
         }
-        else 
+        else
         {
             //console.log("Unable to spawn a: " + role + " because: " + result)
             return null
@@ -215,7 +226,7 @@ var calculateBodyCost = function(body)
     for (var i = 0; i < body.length; ++i )
     {
         cost += BODYPART_COST[body[i]];
-    }    
+    }
     return cost;
 }
 
@@ -230,11 +241,6 @@ var calculateBodyWeight = function(body)
             //Carry parts weigh half beause half the time they weigh nothing
             weight -= 1;
         }
-    }    
+    }
     return weight;
 }
-
-
-    
-
-

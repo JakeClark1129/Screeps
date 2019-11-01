@@ -24,9 +24,9 @@ module.exports = {
         {
             return extension
         }
-        
+
         var flag = Game.flags[Game.spawns.Spawn1.room.name + "-controller"]
-        
+
         if (flag.memory && flag.memory.containerId)
         {
             var container = Game.getObjectById(flag.memory.containerId)
@@ -43,7 +43,7 @@ module.exports = {
             return flag.pos
         }
     },
-    
+
     getEnergySource : function(creep)
 	{
 		var requiredAmount = creep.carryCapacity - _.sum(creep.carry);

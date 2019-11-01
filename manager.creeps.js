@@ -12,22 +12,22 @@ var creepBuilder = require('creepDesigner');
 var MAX_TRANSPORTERS = 2;
 
 //Workers is any creep that spend energy. TODO: Base this number off of energy available to the room.
-var MAX_WORKERS = 2 
+var MAX_WORKERS = 2
 var MAX_UPGRADERS = 0;
 
 var run = function()
 {
-    for(var i in Memory.creeps) 
+    for(var i in Memory.creeps)
     {
-        if(!Game.creeps[i]) 
+        if(!Game.creeps[i])
         {
             delete Memory.creeps[i];
         }
     }
     var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
-    
+
     sites = sites.concat(Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {filter : (structure) => {
-        return structure.hitsMax * 0.70 >= structure.hits 
+        return structure.hitsMax * 0.70 >= structure.hits
     }}));
 
     if (sites)
@@ -71,7 +71,7 @@ var run = function()
             }
         }
     }
-    
+    defendersRequired = 1
     /*
      * Creeps get built in the order that we attempt to build them in. MINER and TRANSPORTER creeps should be at the top so we have a constant flow of energy
     */
@@ -83,6 +83,10 @@ var run = function()
     }
     //Run managers to handle creating new creeps and other things.
     minerManager.run(budget)
+    if(defenderCount < defendersRequired)
+    {
+        creepBuilder.buildCreep(creepBuilder.ROLE_DEFENDER, budget )
+    }
     if(transporterCount < MAX_TRANSPORTERS)
     {
         creepBuilder.buildCreep(creepBuilder.ROLE_TRANSPORTER, budget )
@@ -95,10 +99,9 @@ var run = function()
     {
         creepBuilder.buildCreep(creepBuilder.ROLE_WORKER, budget )
     }
-    
+
 }
-    
+
 module.exports = {
     run : run
 };
-
