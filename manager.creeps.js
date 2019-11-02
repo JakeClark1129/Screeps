@@ -92,7 +92,9 @@ var run = function()
         budget = Game.spawns.Spawn1.room.energyAvailable
     }
     //Run managers to handle creating new creeps and other things.
-    minerManager.run(budget)
+	minerManager.run(budget)
+	console.log("defenderCount: " + defenderCount)
+	console.log("defendersRequired: " + defendersRequired)
     if(defenderCount < defendersRequired)
     {
 		creepBuilder.buildCreep(creepBuilder.ROLE_DEFENDER, budget )
