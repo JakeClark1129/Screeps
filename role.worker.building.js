@@ -168,7 +168,7 @@ module.exports = {
             state = this.states.building(creep);
             break;
         default:
-            console.log("Invalid state for role miner: " + state )
+            console.log("Invalid state for role builder: " + state )
             state = "failed"
             break;
         }

@@ -31,7 +31,7 @@ module.exports = {
             state = state_repairing(creep);
             break;
         default:
-            console.log("Invalid state for role miner: " + state )
+            console.log("Invalid state for role repairer: " + state )
             state = "initializing"
             break;
         }

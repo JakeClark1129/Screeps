@@ -26,7 +26,7 @@ module.exports = {
             state = state_upgrading(creep);
             break;
         default:
-            console.log("Invalid state for role miner: " + state )
+            console.log("Invalid state for role upgrader: " + state )
             state = "initializing"
             break;
         }

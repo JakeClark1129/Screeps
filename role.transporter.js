@@ -212,7 +212,7 @@ module.exports = {
             state = this.states.deliveringResource(creep);
             break;
         default:
-            console.log("Invalid state for role miner: " + state )
+            console.log("Invalid state for role transporter: " + state )
             state = "initializing"
             break;
         }

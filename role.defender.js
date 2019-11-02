@@ -78,7 +78,7 @@ module.exports = {
             state = this.states.requestingTarget(creep);
             break;
         default:
-            console.log("Invalid state for role miner: " + state )
+            console.log("Invalid state for role defender: " + state )
             state = "initializing"
             break;
         }

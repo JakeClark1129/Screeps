@@ -84,9 +84,9 @@ module.exports = {
             console.log("Invalid state for role worker: " + state )
             state = "initializing"
             break;
-        }
-        
-        if (state == "running")                         
+		}
+		console.log("State: " + state)
+        if (state == "running")
         {
             //Do nothing
         }
