@@ -72,7 +72,7 @@ module.exports = {
             state = this.states.initializing(creep);
             break;
         case "pursuit":
-            state = this.states.state_pursuit(creep);
+            state = this.states.pursuit(creep);
             break;
         case "requestingTarget":
             state = this.states.requestingTarget(creep);
