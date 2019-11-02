@@ -14,7 +14,7 @@ module.exports = {
     {
         //TODO: Get list of structures requiring energy from transport manager
     },
-    getTarget : function(creep)
+    requestTarget : function(creep)
     {
         //TODO: This should return the next source from the list, but right now we only have one source.
 		var enemyCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
