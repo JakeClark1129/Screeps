@@ -67,7 +67,8 @@ var run = function()
                 break;
                 case "worker":
                     roleWorker.run(creep)
-                    ++workerCount
+					++workerCount
+				break;
                 case "defender":
                     roleDefender.run(creep)
                     ++defenderCount
