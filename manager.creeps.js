@@ -76,7 +76,7 @@ var run = function()
             }
         }
 	}
-	ver defendersRequired = 0
+	var defendersRequired = 0
 	var enemyCreeps = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS);
 	if (enemyCreeps)
 	{
