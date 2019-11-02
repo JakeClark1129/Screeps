@@ -85,7 +85,7 @@ module.exports = {
             state = "initializing"
             break;
 		}
-		console.log("State: " + state)
+		
         if (state == "running")
         {
             //Do nothing
