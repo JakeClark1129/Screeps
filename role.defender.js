@@ -43,10 +43,6 @@ var state_pursuit = function (creep)
 	{
 		creep.moveTo(target)
 	}
-	else
-	{
-		console.log("Broken Defender Creep. Investigate further...")
-	}
 	return "pursuit"
 }
 
