@@ -78,8 +78,7 @@ var run = function()
 	}
 	var defendersRequired = 0
 	var enemyCreeps = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS);
-	console.log("enemyCreeps: " + enemyCreeps)
-	if (enemyCreeps)
+	if (enemyCreeps.length > 0)
 	{
 		defendersRequired = 1
 	}
@@ -94,8 +93,6 @@ var run = function()
     }
     //Run managers to handle creating new creeps and other things.
 	minerManager.run(budget)
-	console.log("defenderCount: " + defenderCount)
-	console.log("defendersRequired: " + defendersRequired)
     if(defenderCount < defendersRequired)
     {
 		creepBuilder.buildCreep(creepBuilder.ROLE_DEFENDER, budget )
