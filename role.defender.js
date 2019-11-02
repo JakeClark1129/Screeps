@@ -14,6 +14,7 @@ var state_initializing = function (creep)
 {
 	if (!creep.spawning)
 	{
+		creep.say("requestingTarget")
 		return "requestingTarget"
 	}
 	return "initializing"
@@ -23,6 +24,7 @@ var state_pursuit = function (creep)
 {
 	if (!creep.memory.targetId)
 	{
+		creep.say("requestingTarget")
 		return "requestingTarget"
 	}
 	console.log("Target: " + creep.memory.targetId)
@@ -30,6 +32,7 @@ var state_pursuit = function (creep)
 	if (target == null || target == undefined)
 	{
 		creep.memory.targetId == undefined
+		creep.say("requestingTarget")
 		return "requestingTarget"
 	}
 
@@ -37,6 +40,7 @@ var state_pursuit = function (creep)
 	if (result == ERR_INVALID_TARGET)
 	{
 		creep.memory.targetId == undefined
+		creep.say("requestingTarget")
 		return "requestingTarget"
 	}
 	else if(result == ERR_NOT_IN_RANGE)
@@ -52,6 +56,7 @@ var state_requestingTarget = function(creep)
 	if (target)
 	{
 		creep.memory.targetId = target.id
+		creep.say("pursuit")
 		return "pursuit"
 	}
 	return "requestingTarget"

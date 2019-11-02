@@ -75,8 +75,12 @@ var run = function()
                 break;
             }
         }
-    }
-    defendersRequired = 1
+	}
+	var enemyCreeps = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS);
+	if (enemyCreeps)
+	{
+		defendersRequired = 1
+	}
     /*
      * Creeps get built in the order that we attempt to build them in. MINER and TRANSPORTER creeps should be at the top so we have a constant flow of energy
     */
