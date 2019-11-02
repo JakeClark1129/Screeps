@@ -78,6 +78,7 @@ var run = function()
 	}
 	var defendersRequired = 0
 	var enemyCreeps = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS);
+	console.log("enemyCreeps: " + enemyCreeps)
 	if (enemyCreeps)
 	{
 		defendersRequired = 1
